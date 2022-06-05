@@ -1,0 +1,89 @@
+#include<stdio.h>
+int main (){
+	char player1 = 'x', player2 = 'o';
+	int Nlinha=3, Ncol=3;
+	char tab[Nlinha][Ncol];
+	int l, c, posicao;
+	
+	/*
+	    [0][1][2]
+	[0] 1   2   3	
+	[1] 4   5   6	
+	[2] 7   8   9
+	
+	*/
+	//jogo
+for(l=0; l<Nlinha; l++){
+	for(c=0; c<Ncol; c++){
+		tab[l][c] = '-';
+}
+}
+	printf("Jogador %c sua jogada: ", player1);
+	scanf("%d", &posicao);
+	
+	if(posicao==1){
+		tab[0][0]=player1;
+	}
+	else if(posicao==2){
+		tab[0][1]=player1;
+	}
+		else if(posicao==3){
+		tab[0][2]=player1;
+	}
+		else if(posicao==4){
+		tab[1][0]=player1;
+	}
+		else if(posicao==5){
+		tab[1][1]=player1;
+	}
+		else if(posicao==6){
+		tab[1][2]=player1;
+	}
+		else if(posicao==7){
+		tab[2][0]=player1;
+	}
+		else if(posicao==8){
+		tab[2][1]=player1;
+	}
+		else if(posicao==9){
+		tab[2][2]=player1;
+	}
+//imprimir tabuleiro
+	for(l=0; l<Nlinha; l++){
+		for(c=0; c<Ncol; c++){
+		printf(" %c ", tab[l][c]);
+	}
+	printf("\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ return 0;           
+}
