@@ -1,9 +1,9 @@
 #include<stdio.h>
 int main (){
-	char player1 = 'x', player2 = 'o';
+	char player1 = 'x', player2 = 'o', trac = '-', atual = player1, empate = 'E';
 	int Nlinha=3, Ncol=3;
-	char tab[Nlinha][Ncol];
-	int l, c, posicao;
+	char tab[Nlinha][Ncol], ganhador = empate;
+	int l, c, posicao, jogadas = 0;
 	
 	/*
 	    [0][1][2]
@@ -12,77 +12,166 @@ int main (){
 	[2] 7   8   9
 	
 	*/
-	//jogo
-for(l=0; l<Nlinha; l++){
-	for(c=0; c<Ncol; c++){
-		tab[l][c] = '-';
+	  
+        
+    
+//definir os tracinhos da matriz    
+for(l = 0; l < Nlinha; l++){
+	for(c = 0; c < Ncol; c++){
+		tab[l][c] = trac;
+	}
 }
-}
-	printf("Jogador %c sua jogada: ", player1);
+/*1 - 3
+4 - 6
+7 - 9
+ex: 5 é a posicao - 1
+6 a posicao - */
+
+//Base do jogo
+while (1)
+    {	
+	printf("\nJogador %c sua jogada: ", atual);
 	scanf("%d", &posicao);
+
+	if (!(posicao >= 1 && posicao <= 9))
+	{
+		printf("\nErro, digite novamente\n");
+		continue;
+	}
 	
-	if(posicao==1){
-		tab[0][0]=player1;
+//1 a 3
+	if(posicao >= 1 && posicao <= 3)
+	{
+		if (tab [0][posicao - 1] != trac)
+		{
+			printf("\nDigite novamente\n");
+			continue;
+		}
+		
+		tab[0][posicao - 1] = atual;
 	}
-	else if(posicao==2){
-		tab[0][1]=player1;
+
+//4 a 6
+	else if(posicao >= 4 && posicao <=6)
+	{
+		if (tab [1][posicao - 4] != trac)
+		{
+			printf("\nDigite novamente\n");
+			continue;
+		}
+		tab[1][posicao - 4] = atual;
 	}
-		else if(posicao==3){
-		tab[0][2]=player1;
-	}
-		else if(posicao==4){
-		tab[1][0]=player1;
-	}
-		else if(posicao==5){
-		tab[1][1]=player1;
-	}
-		else if(posicao==6){
-		tab[1][2]=player1;
-	}
-		else if(posicao==7){
-		tab[2][0]=player1;
-	}
-		else if(posicao==8){
-		tab[2][1]=player1;
-	}
-		else if(posicao==9){
-		tab[2][2]=player1;
-	}
+
+//7 a 9
+	else if(posicao >= 7 && posicao <= 9)
+	{
+			if (tab [2][posicao - 7] != trac)
+		{
+			printf("\nDigite novamente\n");
+			continue;
+		}
+		tab[2][posicao - 7] = atual;
+	}	
+	
 //imprimir tabuleiro
-	for(l=0; l<Nlinha; l++){
-		for(c=0; c<Ncol; c++){
-		printf(" %c ", tab[l][c]);
+	for(l = 0; l < Nlinha; l++)
+	{
+		for(c = 0; c < Ncol; c++)
+			{
+				printf(" %c ", tab[l][c]);
+			}
+		printf("\n");
+	}	
+
+//Ganhador x linha
+	for (l = 0; l < Nlinha; l++)
+	{
+		if (tab[l][0] == player1 && tab[l][1] == player1 && tab[l][2] == player1){
+			ganhador = player1;
+			printf("Jogador x ganhou!!");
+			break;
+		}
+	}  
+//Ganhador x coluna
+	for (c = 0; c < Ncol; c++)
+	{
+		if (tab[0][c] == player1 && tab[1][c] == player1 && tab[2][c] == player1)
+		{
+			ganhador = player1;
+			printf("Jogador x ganhou!!");
+			break;
+		}
 	}
-	printf("\n");
-}
+//ganhador x diagonais
+		if (tab[0][0] == player1 && tab[1][1] == player1 && tab[2][2] == player1)
+		{
+			ganhador = player1;
+			printf("Jogador x ganhou!!");
+		}
+		else if (tab[0][2] == player1 && tab[1][1] == player1 && tab[2][0] == player1)
+		{
+			ganhador = player1;
+			printf("Jogador x ganhou!!");
+		}
+		if (ganhador!= empate)
+		{
+			break;
+		}
+//linha o		
+	for (l = 0; l < Nlinha; l++)
+	{
+		if (tab[l][0] == player2 && tab[l][1] == player2 && tab[l][2] == player2)
+		{
+			ganhador = player2;
+			printf("Jogador o ganhou!!");
+			break;
+		}
+	}
+//coluna o
+	for (c = 0; c < Ncol; c++){
+		if (tab[0][c] == player2 && tab[1][c] == player2 && tab[2][c] == player2)
+		{
+			ganhador = player2;
+			printf("Jogador o ganhou!!");
+			break;
+		}
+	}
+//diagonais o
+	if (tab[0][0] == player2 && tab[1][1] == player2 && tab[2][2] == player2)
+	{
+		ganhador = player2;
+		printf("Jogador o ganhou!!");
+	}
+	else if (tab[0][2] == player2 && tab[1][1] == player2 && tab[2][0] == player2)
+	{
+		ganhador = player2;
+		printf("Jogador o ganhou!!");
+	}
 
+	if (ganhador != empate)
+	{
+		break;
+	}
+jogadas++;
 
+//Empate
+	if (jogadas == 9)
+ 	{ 
+		printf("Jogo deu Empate!!");
+		break;
+  	}		
 
+//trocando jogadores
+  	if (jogadas %2 == 0)
+	{
+		atual = player1;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	else
+	{
+	atual = player2;
+	}
+}   
 
 
  return 0;           
